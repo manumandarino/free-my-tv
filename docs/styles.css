@@ -784,23 +784,48 @@ h2 {
 }
 
 .card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
   padding: clamp(28px, 3vw, 40px);
+  padding-bottom: 112px;
   border-radius: 30px;
-  background: var(--glass-2);
-  border: 1px solid var(--stroke);
-  box-shadow: var(--shadow-2);
+  color: #fff;
+}
+
+/* Flat, solid colors with a notch cut out of the bottom-right corner for the arrow. */
+.c-orange {
+  background: #f07a32;
+}
+
+.c-violet {
+  background: #8577ee;
+}
+
+.c-lime {
+  background: #d3f36f;
+  color: var(--ink);
+}
+
+.card .icon {
+  width: 36px;
+  height: 36px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .card .big {
   display: block;
+  margin-top: auto;
+  padding-top: 28px;
   font-size: clamp(66px, 7.4vw, 104px);
   font-weight: 750;
   line-height: 1;
   letter-spacing: -0.06em;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  padding-bottom: 0.06em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -808,20 +833,6 @@ h2 {
   margin-left: 6px;
   font-size: 0.34em;
   letter-spacing: -0.02em;
-  color: var(--ink);
-  -webkit-text-fill-color: var(--ink);
-}
-
-.grad-mint {
-  background-image: var(--mint);
-}
-
-.grad-sky {
-  background-image: var(--sky);
-}
-
-.grad-sun {
-  background-image: var(--sun);
 }
 
 .card h4 {
@@ -833,7 +844,64 @@ h2 {
 
 .card p {
   margin-top: 6px;
-  color: var(--muted);
+  max-width: 78%;
+  opacity: 0.85;
+}
+
+.card .go {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  width: 104px;
+  height: 104px;
+  padding: 14px 0 0 14px;
+  border-top-left-radius: 40px;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+/* The two inner curves where the card meets the notch. */
+.card .go::before,
+.card .go::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  background: radial-gradient(circle at 0 0, transparent 25.5px, var(--bg) 26px);
+}
+
+.card .go::before {
+  right: 0;
+  bottom: 100%;
+}
+
+.card .go::after {
+  right: 100%;
+  bottom: 0;
+}
+
+.card .go svg {
+  box-sizing: content-box;
+  width: 30px;
+  height: 30px;
+  padding: 20px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.4s var(--ease), background 0.3s, color 0.3s;
+}
+
+.card .go:hover svg,
+.card .go:focus-visible svg {
+  background: var(--ink);
+  color: #fff;
+  transform: rotate(45deg);
 }
 
 .bars {
@@ -848,20 +916,20 @@ h2 {
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: var(--muted);
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .bars i {
   display: block;
   height: 10px;
   border-radius: 5px;
-  background: var(--sky);
+  background: #fff;
   width: 0;
   transition: width 1.6s var(--ease) 0.3s;
 }
 
 .bars div:first-child i {
-  background: linear-gradient(90deg, #c7c7cc, #aeaeb2);
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .card.in .bars i {
@@ -871,7 +939,7 @@ h2 {
 .bars em {
   font-style: normal;
   font-weight: 600;
-  color: var(--ink);
+  color: #fff;
   font-variant-numeric: tabular-nums;
 }
 
